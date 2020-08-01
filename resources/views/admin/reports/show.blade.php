@@ -3,7 +3,7 @@
 @section('title', 'Просмотреть отчет')
 
 @section('content_header')
-    <h1>Просмотр "{{$name}}"</h1>
+    <h1>Просмотр "{{$report->name}}"</h1>
 @stop
 @section('content')
     <div class="row">
@@ -85,7 +85,7 @@
         jQuery(document).ready(function ($) {
             let id = null;
             $("#reports").DataTable({
-                ajax: "/admin/reports/{{$id}}",
+                ajax: "/admin/reports/{{$report->id}}",
                 idSrc: 'id',
                 table: "#reports",
                 /* dom: 'Pfrtip',*/

@@ -156,20 +156,21 @@ class ReportController extends Controller
             for ($i = 0; $i < 6; $i++) { // Заупскаем цикл по колонкам погоды
                 $dt->addColumn('weather_' . $i, function ($city) use ($i, $report) { // создаем колонку прогноза со счетчиком в названии, получаем данные из фнутренней функции
                     $weather = Weather::where('report_id', $report->id)->where('city_id', $city->id)->get();
+                    $this_weather = $weather[$i];
                     return '
                                  <div class="row">
                                     <div class="col-12 mb-4">
-                                        <img src="https://yastatic.net/weather/i/icons/blueye/color/svg/' . $weather[$i]->icon . '.svg"  class="img-thumbnail" width="100">
+                                        <img src="https://yastatic.net/weather/i/icons/blueye/color/svg/' . $this_weather->icon . '.svg"  class="img-thumbnail" width="100">
                                     </div>
                                     <div class="col-12" style="max-width: 200px;word-break: break-all;">
-                                    <p>id: ' . $weather[$i]->id . '</p>
-                                    <p>report_id: ' . $weather[$i]->report_id . '</p>
-                                    <p>city_id: ' . $weather[$i]->city_id . '</p>
-                                    <p>status: ' . $weather[$i]->status . '</p>
-                                        <p>Дата: ' . date('d.m.Y', strtotime($weather[$i]->date)) . '</p>
-                                        <p>Состояние: ' . $weather[$i]->condition . '</p>
-                                        <p>Температура: ' . $weather[$i]->temp . '°</p>
-                                        <p>Влажность: ' . $weather[$i]->humidity . '%</p>
+                                    <p>id: ' . $this_weather->id . '</p>
+                                    <p>report_id: ' . $this_weather->report_id . '</p>
+                                    <p>city_id: ' . $this_weather->city_id . '</p>
+                                    <p>status: ' . $this_weather->status . '</p>
+                                        <p>Дата: ' . date('d.m.Y', strtotime($this_weather->date)) . '</p>
+                                        <p>Состояние: ' . $this_weather->condition . '</p>
+                                        <p>Температура: ' . $this_weather->temp . '°</p>
+                                        <p>Влажность: ' . $this_weather->humidity . '%</p>
 
                                     </div>
                                 </div>
@@ -178,64 +179,14 @@ class ReportController extends Controller
                 $raw_col[] = 'weather_' . $i;
             }
 
-
-            /*foreach ($cities as $city) { // Заупскаем цикл по городам
-                 $i = 0; // Устанавливаем счетчик погодных дней
-                 foreach ($city->weather()->get() as $weather) { // Запускаем цикл погодных дней
-                     if ($weather->status == 'forecasts') { // Если  это прогноз
-                         $dt->addColumn('forecast_' . $i, function ($city_in) use ($i) { // создаем колонку прогноза со счетчиком в названии, получаем данные из фнутренней функции
-                             $weather = $city_in->weather()->get(); // получаем всю погоду для этого города ( да, снова, но это уже из внутренней функции addColumn)
-                             return '
-                                  <div class="row">
-                                     <div class="col-12 mb-4">
-                                         <img src="https://yastatic.net/weather/i/icons/blueye/color/svg/' . $weather[$i]->icon . '.svg"  class="img-thumbnail" width="100">
-                                     </div>
-                                     <div class="col-12">
-                                         <p>Дата: ' .date('d.m.Y', strtotime($weather[$i]->date))  . '</p>
-                                         <p>Состояние: ' . $weather[$i]->condition . '</p>
-                                         <p>Температура: ' . $weather[$i]->temp . '°</p>
-                                         <p>Влажность: ' . $weather[$i]->humidity . '%</p>
-
-                                     </div>
-                                 </div>
-                             '; // Выводим данные указывая id  в массиве данных
-                         });
-                         $raw_col[] = 'forecast_' . $i;
-                     }
-                     if ($weather->status == 'fact') {
-                         $dt->addColumn('fact', function ($city_in) use ($i) {
-                             $weather = $city_in->weather()->get();
-                             return '
-                                  <div class="row">
-                                     <div class="col-12 mb-4">
-                                         <img src="https://yastatic.net/weather/i/icons/blueye/color/svg/' . $weather[$i]->icon . '.svg"  class="img-thumbnail" width="100">
-                                     </div>
-                                     <div class="col-12">
-                                         <p>Дата: ' .date('d.m.Y', strtotime($weather[$i]->date))  . '</p>
-                                         <p>Состояние: ' . $weather[$i]->condition . '</p>
-                                         <p>Температура: ' . $weather[$i]->temp . '°</p>
-                                         <p>Влажность: ' . $weather[$i]->humidity . '%</p>
-
-                                     </div>
-                                 </div>
-                             ';
-                         });
-                         $raw_col[] = 'fact';
-                     }
-                     $i++;
-
-                 }
-                 $i = 0;
-             }*/
             $dt->addColumn('action', function ($data) {
                 return '<button type="button" name="delete" id="' . $data->id . '" class="delete btn btn-danger btn-sm">Удалить</button>';
             });
-            // dd($dt->rawColumns($raw_col)->make(true));
+
             return $dt->rawColumns($raw_col)->make(true);
         }
         return view('admin.reports.show', [
-            'id' => $report->id,
-            'name' => $report->name,
+            'report' => $report
         ]);
 
     }
