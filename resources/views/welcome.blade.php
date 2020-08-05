@@ -35,9 +35,9 @@
         }
 
         .top-right {
-            position: absolute;
-            right: 10px;
-            top: 18px;
+            position: relative;
+            display: table;
+            margin: 30px auto 10px;
         }
 
         .content {
@@ -46,6 +46,7 @@
 
         .title {
             font-size: 84px;
+            word-break: break-word;
         }
 
         .links > a {
@@ -64,25 +65,25 @@
     </style>
 </head>
 <body>
+@if (Route::has('login'))
+    <div class="top-right links">
+        @auth
+            <a href="{{ url('/admin') }}">В Панель</a>
+        @else
+            <a href="{{ route('login') }}">Вход</a>
+
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}">Регистрация</a>
+            @endif
+        @endauth
+    </div>
+@endif
+
 <div class="flex-center position-ref full-height">
-    @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-                <a href="{{ url('/admin') }}">В Панель</a>
-            @else
-                <a href="{{ route('login') }}">Вход</a>
-
-                @if (Route::has('register'))
-                    <a href="{{ route('register') }}">Регистрация</a>
-                @endif
-            @endauth
-        </div>
-    @endif
-
     <div class="content">
         <div class="title m-b-md">
             <img src="https://yastatic.net/weather/i/icons/blueye/color/svg/bkn_n.svg" alt="YaWeather"
-                 style="opacity:.8">
+                 style="opacity:.8;max-width: 100%;">
             <b>Ya</b>Weather
         </div>
 

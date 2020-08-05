@@ -7,12 +7,11 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Добро пожаловать. Откройте меню и выберите нужный пункт.</p>
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="/css/app.css">
+
 @stop
 
 @section('js')
