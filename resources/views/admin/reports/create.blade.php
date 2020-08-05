@@ -62,20 +62,21 @@
                     data: data,
                     dataType: "json",
                     beforeSend: function () {
-                        $('#form_result').html('<p>Создаем отчет...</p>');
+                        $('#form_result').html('<p class="alert alert-default-dark mt-3">Создаем отчет...</p>');
                     },
                     success: function (data) {
                         let html = '';
                         if (data.errors) {
-                            html = '<div class="alert alert-danger">';
+                            console.log(data.errors.length);
+                            html = '<div class="alert alert-danger mt-3">';
                             for (let i = 0; i < data.errors.length; i++) {
-                                html += '<p class="mb-0">' + data.errors[i] + '</p>';
+                                html += '<p class="mb-0">' + data.errors[i].text + '</p>';
                             }
                             html += '</div>';
                             $("#form_result").html(html);
                         }
                         if (data.success) {
-                            html = '<div class="alert allert-success">' +
+                            html = '<div class="alert alert-success mt-3">' +
                                 data.success.text + '</div>';
                             $("#form_result").html(html);
                             console.log(data.success);

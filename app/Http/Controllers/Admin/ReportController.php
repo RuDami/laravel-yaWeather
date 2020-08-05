@@ -87,6 +87,12 @@ class ReportController extends Controller
         $cities = $request->input('cities');
         $report->cities()->attach($cities);
 
+        if ($cities == null) {
+            $response = [
+                ['text' => 'Пожалуйста выберите хотябы один город'],
+            ];
+            return response()->json(['errors' => $response]);
+        }
         foreach ($cities as $city) {
             $city = City::findOrFail($city);
             $store_weather = (new WeatherController)->store($report, $city);
