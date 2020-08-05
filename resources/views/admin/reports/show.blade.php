@@ -8,7 +8,14 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12">
-            <a href="" type="button" name="download" id="download" class="btn btn-success btn-sm">Скачать отчет</a>
+            <input action="action"
+                   onclick="window.history.go(-1); return false;"
+                   type="submit"
+                   value="Назад"
+                   class="btn btn-default btn-sm">
+            <a href="{{route('admin.report.download', $report)}}" target="_blank" name="download" id="download"
+               class="btn btn-success btn-sm">Скачать отчет</a>
+
         </div>
     </div>
     <div class="row">
@@ -25,7 +32,6 @@
                             <th>Через 2 дня</th>
                             <th>Через 3 дня</th>
                             <th>Через 4 дня</th>
-                            <th>Действие</th>
                         </tr>
                         </thead>
 
@@ -39,7 +45,6 @@
                             <th>Через 2 дня</th>
                             <th>Через 3 дня</th>
                             <th>Через 4 дня</th>
-                            <th>Действие</th>
 
                         </tr>
                         </tfoot>
@@ -76,8 +81,7 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="/css/app.css">
+
 @stop
 
 @section('js')
@@ -88,7 +92,6 @@
                 ajax: "/admin/reports/{{$report->id}}",
                 idSrc: 'id',
                 table: "#reports",
-                /* dom: 'Pfrtip',*/
                 dom: 'Brftip',
                 processing: true,
                 serverSide: true,
@@ -118,48 +121,15 @@
                 ],
                 columns: [
                     {data: "name"},
-                    /*  {data: "fact"},
-                      {data: "forecast_0"},
-                      {data: "forecast_1"},
-                      {data: "forecast_2"},
-                      {data: "forecast_3"},
-                      {data: "forecast_4"},*/
                     {data: "weather_0"},
                     {data: "weather_1"},
                     {data: "weather_2"},
                     {data: "weather_3"},
                     {data: "weather_4"},
                     {data: "weather_5"},
-                    {data: "action", name: "action", orderable: false},
                 ],
 
             });
-
-            $(document).on('click', '.delete', function () {
-                event.preventDefault();
-                id = $(this).attr('id');
-                $('#ok_button').text('Удалить');
-                $('#coonfirmModal').modal('show');
-            });
-            $('#delete_form').on('submit', function () {
-                event.preventDefault();
-                $.ajax({
-                    url: '/admin/reports/' + id,
-                    method: 'DELETE',
-                    data: $(this).serialize(),
-                    dataType: "json",
-                    beforeSend: function () {
-                        $('#ok_button').text('Удаляем...');
-                    },
-                    success: function (data) {
-                        $('#coonfirmModal').modal('hide');
-                        $("#reports").DataTable().ajax.reload();
-                        alert(data.success);
-                    }
-
-                })
-            })
-
         });
 
     </script>

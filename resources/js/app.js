@@ -10,6 +10,7 @@ require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
 require('datatables.net-bs4');
 require('datatables.net-searchpanes');
 require('datatables.net-select-bs4');
+require('bootstrap-select');
 //require('datatables.net-searchpanes-bs4');
 $.extend(true, $.fn.DataTable.defaults, {
     language: {

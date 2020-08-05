@@ -13,6 +13,11 @@ class Report extends Model
         return $this->hasMany('App\Weather', 'report_id', 'id');
     }
 
+    public function getNameAttribute()
+    {
+        return "Отчет номер $this->id";
+    }
+
     public function cities()
     {
         return $this->belongsToMany('App\City', 'report_city');

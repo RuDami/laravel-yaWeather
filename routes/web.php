@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/', 'DashboardController@dashboard')->name('admin.index');
     Route::resource('/reports', 'ReportController', ['as' => 'admin']);
+    Route::get('/reports/download/{report}', 'ReportController@download')->name('admin.report.download');
     Route::resource('/cities', 'CityController', ['as' => 'admin']);
     Route::resource('/weather', 'WeatherController', ['as' => 'admin']);
     Route::group(['prefix' => 'user_management', 'namespace' => 'UserManagement'], function () {

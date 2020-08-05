@@ -7,11 +7,26 @@
 @stop
 
 @section('content')
-    <div class="row">
+    <form class="row" action="" id="report_form">
+
+        <select name="cities[]" id=""
+                multiple
+                class="selectpicker show-tick col-sm-12"
+                data-style="btn-primary"
+                data-width="auto"
+                data-actions-box="true"
+                data-live-search="true"
+                title="Выберите нужные города...">
+
+            @foreach($cities as $city)
+                <option value="{{$city->id}}">{{$city->name}}</option>
+            @endforeach
+        </select>
         <div class="col-sm-12">
-            <button type="button" name="create" id="create" class="btn btn-success btn-sm">Создать</button>
+            @csrf
+            <input type="submit" name="create" id="create" class="btn btn-success mt-5 btn-sm" value="Создать">
         </div>
-    </div>
+    </form>
     <div class="row">
         <div class="col-sm-12">
             <div class="panel panel-primary">
@@ -35,18 +50,17 @@
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             let id = null;
-            $("#create").click(function () {
-                event.preventDefault();
+            $('#report_form').on('submit', function (e) {
+                e.preventDefault();
                 let method = "POST";
                 let action_url = '{{route('admin.reports.store')}}'
-                let data = {_token: "{{ csrf_token() }}"};
-                data = JSON.stringify(data);
+                let data = $(this).serialize();
+
                 $.ajax({
                     url: action_url,
                     method: method,
                     data: data,
-                    contentType: 'application/json; charset=utf-8',
-                    processData: false,
+                    dataType: "json",
                     beforeSend: function () {
                         $('#form_result').html('<p>Создаем отчет...</p>');
                     },
@@ -64,7 +78,7 @@
                             html = '<div class="alert allert-success">' +
                                 data.success.text + '</div>';
                             $("#form_result").html(html);
-                            console.log(data.success.text);
+                            console.log(data.success);
                             window.location.href = data.success.redirectTo;
                         }
 

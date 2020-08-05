@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\City;
 use App\Http\Controllers\Controller;
+use App\Weather;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -146,6 +147,7 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
+        Weather::where('city_id', $city->id)->delete();
         $city->reports()->detach();
         $city->delete();
         return response()->json(['success' => 'Данные успешно удалены']);

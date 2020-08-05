@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="row">
+
         <div class="col-sm-12">
             <button type="button" name="create" id="create" class="btn btn-success btn-sm">Создать</button>
         </div>
@@ -130,8 +131,8 @@
                 ajax: "{!! route('admin.cities.index') !!}",
                 idSrc: 'id',
                 table: "#cities",
-                dom: 'Pfrtip',
-                /*dom: 'Brftip',*/
+                //dom: 'Pfrtip',
+                dom: 'Brftip',
                 processing: true,
                 serverSide: true,
                 paging: true,

@@ -16,6 +16,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Название</th>
+                            <th>Дата</th>
+                            <th>Время</th>
                             <th>Действие</th>
                         </tr>
                         </thead>
@@ -25,6 +27,8 @@
                         <tr class="replace-inputs">
                             <th>ID</th>
                             <th>Название</th>
+                            <th>Дата</th>
+                            <th>Время</th>
                             <th>Действие</th>
                         </tr>
                         </tfoot>
@@ -109,8 +113,7 @@
 @stop
 
 @section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-    <link rel="stylesheet" href="/css/app.css">
+
 @stop
 
 @section('js')
@@ -121,8 +124,8 @@
                 ajax: "{!! route('admin.reports.index') !!}",
                 idSrc: 'id',
                 table: "#reports",
-                dom: 'Pfrtip',
-                /*dom: 'Brftip',*/
+                //  dom: 'Pfrtip',
+                dom: 'Brftip',
                 processing: true,
                 serverSide: true,
                 paging: true,
@@ -152,6 +155,8 @@
                 columns: [
                     {data: "id"},
                     {data: "name", name: "name"},
+                    {data: "date"},
+                    {data: "time"},
                     {data: "action", name: "action", orderable: false},
                 ],
 
