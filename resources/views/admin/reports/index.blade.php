@@ -18,6 +18,7 @@
                             <th>Название</th>
                             <th>Дата</th>
                             <th>Время</th>
+                            <th>Пользователь</th>
                             <th>Действие</th>
                         </tr>
                         </thead>
@@ -29,6 +30,7 @@
                             <th>Название</th>
                             <th>Дата</th>
                             <th>Время</th>
+                            <th>Пользователь</th>
                             <th>Действие</th>
                         </tr>
                         </tfoot>
@@ -157,6 +159,7 @@
                     {data: "name", name: "name"},
                     {data: "date"},
                     {data: "time"},
+                    {data: "user_id"},
                     {data: "action", name: "action", orderable: false},
                 ],
 

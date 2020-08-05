@@ -8,6 +8,7 @@ require('./bootstrap');
 require('overlayscrollbars');
 require('../../vendor/almasaeed2010/adminlte/dist/js/adminlte');
 require('datatables.net-bs4');
+require('datatables.net-responsive');
 require('datatables.net-searchpanes');
 require('datatables.net-select-bs4');
 require('bootstrap-select');
@@ -35,6 +36,9 @@ $.extend(true, $.fn.DataTable.defaults, {
             //  sortDescending: ": activer pour trier la colonne par ordre décroissant"
         }
     },
+    responsive: true,
+    paging: false,
+    pageLength: 30,
     i18n: {
         create: {
             button: "Создать",

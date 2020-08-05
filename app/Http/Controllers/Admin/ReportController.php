@@ -6,6 +6,7 @@ use App\City;
 use App\Exports\ReportsExport;
 use App\Http\Controllers\Controller;
 use App\Report;
+use App\User;
 use App\Weather;
 use DataTables;
 use Illuminate\Contracts\Foundation\Application;
@@ -13,6 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class ReportController extends Controller
@@ -37,6 +39,14 @@ class ReportController extends Controller
         if ($request->ajax()) {
             $reports = Report::get();
             $dt = DataTables::of($reports);
+            $dt->editColumn('user_id', function ($data) {
+                if ($data->user_id) {
+                    $user = ' <p>' . User::findOrFail($data->user_id)->name . '</p>';
+                } else {
+                    $user = 'Нет ничего';
+                }
+                return $user;
+            });
             $dt->addColumn('date', function ($data) {
                 $button = ' <p>' . date('d.m.Y', strtotime($data->created_at)) . '</p>';
                 return $button;
@@ -51,7 +61,7 @@ class ReportController extends Controller
                 $button .= '<a  href="/admin/reports/download/' . $data->id . '" target="_blank" name="download" id="' . $data->id . '" class="download btn btn-success btn-sm">Скачать</a>';
                 return $button;
             });
-            return $dt->rawColumns(['action', 'date', 'time'])->make(true);
+            return $dt->rawColumns(['action', 'date', 'time', 'user_id'])->make(true);
         }
         return view('admin.reports.index', [
             'cities' => City::all(),
@@ -82,6 +92,7 @@ class ReportController extends Controller
 
         $report_data = [
             'name' => 'Отчет',
+            'user_id' => Auth::id()
         ];
         $report = Report::create($report_data);
         $cities = $request->input('cities');
