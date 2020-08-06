@@ -124,7 +124,7 @@ class ReportController extends Controller
 
     public function download(Report $report)
     {
-        return (new ReportsExport($report))->download('reports_' . $report->input('id') . '_' . $report->input('date') . '.csv');
+        return (new ReportsExport($report))->download('reports_' . $report->id . '_' . $report->date . '.csv');
     }
 
     /**
