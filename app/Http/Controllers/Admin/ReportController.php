@@ -43,7 +43,7 @@ class ReportController extends Controller
                 if ($data->user_id) {
                     $user = ' <p>' . User::findOrFail($data->user_id)->name . '</p>';
                 } else {
-                    $user = 'Нет ничего';
+                    $user = 'Не указан';
                 }
                 return $user;
             });

@@ -15,7 +15,6 @@
                 data-style="btn-primary"
                 data-width="auto"
                 data-actions-box="true"
-                data-live-search="true"
                 title="Выберите нужные города...">
 
             @foreach($cities as $city)
@@ -24,7 +23,7 @@
         </select>
         <div class="col-sm-12">
             @csrf
-            <input type="submit" name="create" id="create" class="btn btn-success mt-5 btn-sm" value="Создать">
+            <input type="submit" name="create" id="create" class="btn btn-success mb-3 mt-5 btn-sm" value="Создать">
         </div>
     </form>
     <div class="row">

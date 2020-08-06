@@ -8,7 +8,6 @@ use App\Weather;
 use Illuminate\Contracts\Support\Responsable;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromArray;
-use Maatwebsite\Excel\Excel;
 
 class ReportsExport implements FromArray, Responsable
 {
@@ -17,9 +16,9 @@ class ReportsExport implements FromArray, Responsable
     protected $report;
     /**
      * Optional Writer Type
-     */
-    private $writerType = Excel::CSV;
-
+ *
+* private $writerType = Excel::CSV;
+*/
     /**
      * @return array
      */
@@ -37,10 +36,12 @@ class ReportsExport implements FromArray, Responsable
       }*/
     /**
      * Optional headers
+     *
+     * private $headers = [
+     * 'Content-Type' => 'text/csv',
+     * ];
+     * @param Report $report
      */
-    private $headers = [
-        'Content-Type' => 'text/csv',
-    ];
 
     public function __construct(Report $report)
     {
