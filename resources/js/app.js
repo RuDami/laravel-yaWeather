@@ -13,6 +13,9 @@ require('datatables.net-searchpanes');
 require('datatables.net-select-bs4');
 require('bootstrap-select');
 //require('datatables.net-searchpanes-bs4');
+
+$.fn.selectpicker.Constructor.DEFAULTS.selectAllText = 'Выбрать все';
+$.fn.selectpicker.Constructor.DEFAULTS.deselectAllText = 'Снять все';
 $.extend(true, $.fn.DataTable.defaults, {
     language: {
         processing: "Ожидайте...",

@@ -85,9 +85,9 @@ class WeatherController extends Controller
         Weather::create([
             'report_id' => $report->id,
             'city_id' => $city->id,
-            'status' => 'fact',
+            'status' => 'Факт.',
             'icon' => $fact->icon,
-            'condition' => $fact->condition,
+            'condition' => WeatherController::getCondition($fact->condition),
             'temp' => $fact->temp,
             'temp_max' => $fact->feels_like,
             'temp_min' => $fact->temp,
@@ -98,9 +98,9 @@ class WeatherController extends Controller
             Weather::create([
                 'report_id' => $report->id,
                 'city_id' => $city->id,
-                'status' => 'forecasts',
+                'status' => 'Прогноз',
                 'icon' => $forecast->parts->day_short->icon,
-                'condition' => $forecast->parts->day_short->condition,
+                'condition' => WeatherController::getCondition($forecast->parts->day_short->condition),
                 'temp' => $forecast->parts->day_short->temp,
                 'temp_max' => $forecast->parts->day_short->temp_min,
                 'temp_min' => $forecast->parts->night_short->temp,
@@ -155,5 +155,34 @@ class WeatherController extends Controller
     {
         $weather->delete();
         return response()->json(['success' => 'Данные успешно удалены']);
+    }
+
+    public function getCondition(string $value)
+    {
+        //"Текущее состояние погоды"
+        $array = [
+            "clear" => "ясно",
+            "partly-cloudy" => "малооблачно",
+            "cloudy" => "облачно с прояснениями",
+            "overcast" => "пасмурно",
+            "partly-cloudy-and-light-rain" => "небольшой дождь",
+            "partly-cloudy-and-rain" => "дождь",
+            "overcast-and-rain" => "сильный дождь",
+            "overcast-thunderstorms-with-rain" => "сильный дождь, гроза",
+            "cloudy-and-light-rain" => "небольшой дождь",
+            "overcast-and-light-rain" => "небольшой дождь",
+            "cloudy-and-rain" => "дождь",
+            "overcast-and-wet-snow" => "дождь со снегом",
+            "partly-cloudy-and-light-snow" => "небольшой снег",
+            "partly-cloudy-and-snow" => "снег",
+            "overcast-and-snow" => "снегопад",
+            "cloudy-and-light-snow" => "небольшой снег",
+            "overcast-and-light-snow" => "небольшой снег",
+            "cloudy-and-snow" => "снег",
+        ];
+        if (!array_key_exists($value, $array)) {
+            return false;
+        }
+        return $array[$value];
     }
 }

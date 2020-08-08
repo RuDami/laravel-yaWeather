@@ -134,7 +134,7 @@
                 ordering: true,
                 info: true,
                 searching: true,
-                order: [[1, 'asc']],
+                order: [[1, 'desc']],
                 searchPanes: {
                     dtOpts: {
                         dom: "tp",

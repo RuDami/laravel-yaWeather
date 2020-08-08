@@ -121,12 +121,12 @@
                 ],
                 columns: [
                     {data: "name"},
-                    {data: "weather_0"},
-                    {data: "weather_1"},
-                    {data: "weather_2"},
-                    {data: "weather_3"},
-                    {data: "weather_4"},
-                    {data: "weather_5"},
+                    {data: "weather_0", "searchable": false},
+                    {data: "weather_1", "searchable": false},
+                    {data: "weather_2", "searchable": false},
+                    {data: "weather_3", "searchable": false},
+                    {data: "weather_4", "searchable": false},
+                    {data: "weather_5", "searchable": false},
                 ],
 
             });

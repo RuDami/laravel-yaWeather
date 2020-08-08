@@ -162,8 +162,8 @@
                 columns: [
                     {data: "id"},
                     {data: "name", name: "name"},
-                    {data: "lon", name: "lon"},
                     {data: "lat", name: "lat"},
+                    {data: "lon", name: "lon"},
                     {data: "action", name: "action", orderable: false},
                 ],
 
